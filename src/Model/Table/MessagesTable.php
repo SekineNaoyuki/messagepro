@@ -51,13 +51,6 @@ class MessagesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('user_id')
-            ->notEmptyString('user_id');
-
-        $validator
-            ->allowEmptyString('category_id');
-
-        $validator
             ->notEmptyString('status');
 
         $validator

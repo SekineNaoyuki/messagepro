@@ -9,8 +9,6 @@ use Cake\ORM\Entity;
  * Message Entity
  *
  * @property int $id
- * @property int $user_id
- * @property int|null $category_id
  * @property int $status
  * @property string $title
  * @property string|null $body
@@ -28,8 +26,6 @@ class Message extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'user_id' => true,
-        'category_id' => true,
         'status' => true,
         'title' => true,
         'body' => true,
