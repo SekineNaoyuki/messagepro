@@ -11,6 +11,9 @@ use Cake\Validation\Validator;
 /**
  * Messages Model
  *
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\CategoriesTable&\Cake\ORM\Association\BelongsTo $Categories
+ *
  * @method \App\Model\Entity\Message newEmptyEntity()
  * @method \App\Model\Entity\Message newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Message[] newEntities(array $data, array $options = [])
@@ -40,6 +43,14 @@ class MessagesTable extends Table
         $this->setTable('messages');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('Categories', [
+            'foreignKey' => 'category_id',
+        ]);
     }
 
     /**
@@ -52,6 +63,13 @@ class MessagesTable extends Table
     {
         $validator
             ->notEmptyString('status');
+
+        $validator
+            ->integer('user_id')
+            ->notEmptyString('user_id');
+
+        $validator
+            ->allowEmptyString('category_id');
 
         $validator
             ->scalar('title')
@@ -68,5 +86,20 @@ class MessagesTable extends Table
             ->allowEmptyDateTime('create_datetime');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
+        $rules->add($rules->existsIn('category_id', 'Categories'), ['errorField' => 'category_id']);
+
+        return $rules;
     }
 }

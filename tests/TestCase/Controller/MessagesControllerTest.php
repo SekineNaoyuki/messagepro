@@ -23,6 +23,8 @@ class MessagesControllerTest extends TestCase
      */
     protected $fixtures = [
         'app.Messages',
+        'app.Users',
+        'app.Categories',
     ];
 
     /**

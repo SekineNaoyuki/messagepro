@@ -19,6 +19,14 @@
             <h3><?= h($message->title) ?></h3>
             <table>
                 <tr>
+                    <th><?= __('User') ?></th>
+                    <td><?= $message->has('user') ? $this->Html->link($message->user->id, ['controller' => 'Users', 'action' => 'view', $message->user->id]) : '' ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Category') ?></th>
+                    <td><?= $message->has('category') ? $this->Html->link($message->category->name, ['controller' => 'Categories', 'action' => 'view', $message->category->id]) : '' ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Title') ?></th>
                     <td><?= h($message->title) ?></td>
                 </tr>

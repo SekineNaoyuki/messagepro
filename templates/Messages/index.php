@@ -13,6 +13,8 @@
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('status') ?></th>
+                    <th><?= $this->Paginator->sort('user_id') ?></th>
+                    <th><?= $this->Paginator->sort('category_id') ?></th>
                     <th><?= $this->Paginator->sort('title') ?></th>
                     <th><?= $this->Paginator->sort('create_datetime') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -23,6 +25,8 @@
                 <tr>
                     <td><?= $this->Number->format($message->id) ?></td>
                     <td><?= $this->Number->format($message->status) ?></td>
+                    <td><?= $message->has('user') ? $this->Html->link($message->user->id, ['controller' => 'Users', 'action' => 'view', $message->user->id]) : '' ?></td>
+                    <td><?= $message->has('category') ? $this->Html->link($message->category->name, ['controller' => 'Categories', 'action' => 'view', $message->category->id]) : '' ?></td>
                     <td><?= h($message->title) ?></td>
                     <td><?= h($message->create_datetime) ?></td>
                     <td class="actions">
