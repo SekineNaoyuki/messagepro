@@ -43,6 +43,7 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', ['loginRedirect' => ['controller' => 'Messages', 'action' => 'index']]);
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
