@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use App\Controller\AppController;
+use Cake\Event\EventInterface;
 
 /**
  * Users Controller
@@ -11,6 +13,14 @@ namespace App\Controller;
  */
 class UsersController extends AppController
 {
+
+    public function beforeFilter(EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        //loginは許可に追加しないこと
+        $this->Auth->allow(['add', 'logout']);
+    }
+
     /**
      * Index method
      *
@@ -50,9 +60,8 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success(__('登録しました。 ユーザー名とパスワードでログインしてください'));
+                return $this->redirect(['action' => 'login']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -101,5 +110,22 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function login()
+    {
+        if ($this->request->is('post')){
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error(' ユーザー 名 か パスワード が 違い ます');
+        }
+    }
+
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
     }
 }
