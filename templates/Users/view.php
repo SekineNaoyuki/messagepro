@@ -22,22 +22,6 @@
                     <th><?= __('Username') ?></th>
                     <td><?= h($user->username) ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('Role') ?></th>
-                    <td><?= h($user->role) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($user->id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Status') ?></th>
-                    <td><?= $this->Number->format($user->status) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Create Datetime') ?></th>
-                    <td><?= h($user->create_datetime) ?></td>
-                </tr>
             </table>
             <div class="text">
                 <strong><?= __('Pr') ?></strong>

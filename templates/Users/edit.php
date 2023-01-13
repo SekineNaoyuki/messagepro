@@ -23,10 +23,7 @@
                 <legend><?= __('Edit User') ?></legend>
                 <?php
                     echo $this->Form->control('username');
-                    echo $this->Form->control('status');
-                    echo $this->Form->control('role');
                     echo $this->Form->control('pr');
-                    echo $this->Form->control('create_datetime', ['empty' => true]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

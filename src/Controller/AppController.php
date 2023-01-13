@@ -43,12 +43,39 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Auth', ['loginRedirect' => ['controller' => 'Messages', 'action' => 'index']]);
+        $this->loadComponent('Auth', [
+            'authorize' => 'Controller',
+            'authenticate' => [
+                'Form' => [
+                    'finder' => 'auth'
+                ]
+            ],
+            'loginRedirect' => ['controller' => 'Messages', 'action' => 'index']
+        ]);
+        // $this->loadComponent('Auth', [
+        //     'authenticate' => [
+        //         'Form' => [
+        //             'userModel' => 'Members',
+        //             'fields' => ['username' => 'membername', 'password' => 'memberpass']
+        //             ]
+        //     ],
+        //     'loginAction' => '/members/login',
+        //     'logoutRedirect' => ['controller' => 'Members', 'action' => 'login'],
+        //     'loginRedirect' => ['controller' => 'Messages',' action' => 'index']
+        // ]);
 
-        /*
+        /**
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+
+    public function isAuthorized($user)
+    {
+        if(isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+        return false;
     }
 }
