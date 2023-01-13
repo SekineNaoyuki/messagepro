@@ -20,27 +20,15 @@
             <table>
                 <tr>
                     <th><?= __('User') ?></th>
-                    <td><?= $message->has('user') ? $this->Html->link($message->user->id, ['controller' => 'Users', 'action' => 'view', $message->user->id]) : '' ?></td>
+                    <td><?= $message->has('user') ? $this->Html->link($message->user->username, ['controller' => 'Users', 'action' => 'view', $message->user->id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Category') ?></th>
-                    <td><?= $message->has('category') ? $this->Html->link($message->category->name, ['controller' => 'Categories', 'action' => 'view', $message->category->id]) : '' ?></td>
+                    <td><?= $message->has('category') ? h($message->category->name) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Title') ?></th>
                     <td><?= h($message->title) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($message->id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Status') ?></th>
-                    <td><?= $this->Number->format($message->status) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Create Datetime') ?></th>
-                    <td><?= h($message->create_datetime) ?></td>
                 </tr>
             </table>
             <div class="text">

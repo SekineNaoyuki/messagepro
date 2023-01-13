@@ -24,15 +24,16 @@
                 <?php foreach ($messages as $message): ?>
                 <tr>
                     <td><?= $this->Number->format($message->id) ?></td>
-                    <td><?= $this->Number->format($message->status) ?></td>
-                    <td><?= $message->has('user') ? $this->Html->link($message->user->id, ['controller' => 'Users', 'action' => 'view', $message->user->id]) : '' ?></td>
-                    <td><?= $message->has('category') ? $this->Html->link($message->category->name, ['controller' => 'Categories', 'action' => 'view', $message->category->id]) : '' ?></td>
+                    <td><?= $message->has('user') ? $this->Html->link($message->user->username, ['controller' => 'Users', 'action' => 'view', $message->user->id]) : '' ?></td>
+                    <td><?= $message->has('category') ? h($message->category->name) : '' ?></td>
                     <td><?= h($message->title) ?></td>
                     <td><?= h($message->create_datetime) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $message->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $message->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id)]) ?>
+                        <?php if ($message->user_id === $auth_user_id): ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $message->id]) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id)]) ?>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
