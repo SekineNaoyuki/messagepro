@@ -36,27 +36,19 @@
                     <table>
                         <tr>
                             <th><?= __('Id') ?></th>
-                            <th><?= __('Status') ?></th>
-                            <th><?= __('User Id') ?></th>
                             <th><?= __('Category Id') ?></th>
                             <th><?= __('Title') ?></th>
-                            <th><?= __('Body') ?></th>
                             <th><?= __('Create Datetime') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($user->messages as $messages) : ?>
                         <tr>
                             <td><?= h($messages->id) ?></td>
-                            <td><?= h($messages->status) ?></td>
-                            <td><?= h($messages->user_id) ?></td>
-                            <td><?= h($messages->category_id) ?></td>
+                            <td><?= h($cate_list[$messages->category_id]) ?></td>
                             <td><?= h($messages->title) ?></td>
-                            <td><?= h($messages->body) ?></td>
                             <td><?= h($messages->create_datetime) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'Messages', 'action' => 'view', $messages->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Messages', 'action' => 'edit', $messages->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Messages', 'action' => 'delete', $messages->id], ['confirm' => __('Are you sure you want to delete # {0}?', $messages->id)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

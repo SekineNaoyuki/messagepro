@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\EventInterface;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Users Controller
@@ -45,8 +46,10 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['Messages'],
         ]);
-
-        $this->set(compact('user'));
+        $connection = ConnectionManager::get('default');
+        $cate_assoc = $connection->execute('SELECT * FROM categories')->fetchAll('assoc');
+        $cate_list = array_column($cate_assoc, 'name', 'id');
+        $this->set(compact('user', 'cate_list'));
     }
 
     /**

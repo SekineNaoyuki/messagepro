@@ -11,6 +11,13 @@ namespace App\Controller;
  */
 class MessagesController extends AppController
 {
+
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->viewBuilder()->setLayout('basic_layout');
+    }
+
     /**
      * Index method
      *
